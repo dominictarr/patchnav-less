@@ -13,7 +13,7 @@
     "hyperscript": "^2.0.2"
   },
   "devDependencies": {
-    "depject": "^4.1.1",
+    "depject": "^4.1.1"
   },
   "scripts": {
     "test": "set -e; for t in test/*.js; do node $t; done"
