@@ -7,7 +7,7 @@ if(!window.location.hash && isElectron()) //'undefined' !== typeof process && pr
   window.location.hash = process.argv[2]
 
 exports.gives = {
-  layout: {
+  nav: {
     screen: true, goto: true
   }
 }
@@ -58,7 +58,7 @@ exports.create = function (api) {
   }
 
   return {
-    layout: {
+    nav: {
       screen: function () {
         var str = window.location.hash.substring(1)
 
@@ -89,5 +89,4 @@ exports.create = function (api) {
     }
   }
 }
-
 

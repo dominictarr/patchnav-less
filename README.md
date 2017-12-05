@@ -1,4 +1,4 @@
-# patchnavless
+# patchnav-less
 
 chromeless navigation for patchless
 
