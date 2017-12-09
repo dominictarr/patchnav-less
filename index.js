@@ -1,6 +1,8 @@
 var isElectron = require('is-electron')
 var h = require('hyperscript')
 var HyperScroll = require('hyperscroll')
+var fs = require('fs')
+var path = require('path')
 
 //handle incase we run this inside `electro`
 if(!window.location.hash && isElectron()) //'undefined' !== typeof process && process.argv[2])
@@ -22,7 +24,7 @@ exports.needs = {
 exports.create = function (api) {
   var page = h('div.placeholder')
   var container = h('div.navless', page,
-    h('style', {innerText: require('fs').readFileSync(require('path').join(__dirname, 'style.css'))})
+    h('style', {innerText: fs.readFileSync(path.join(__dirname, 'style.css'))})
   )
 
   function goto (str) {
@@ -72,8 +74,10 @@ exports.create = function (api) {
 
         if(isElectron()) {
           window.onkeydown = function (ev) {
-            if(ev.keyCode == 37) history.back()
-            else if(ev.keyCode == 39) history.forward()
+            if(ev.altKey) {
+              if(ev.keyCode == 37) history.back()
+              else if(ev.keyCode == 39) history.forward()
+            }
           }
         }
 
@@ -89,4 +93,5 @@ exports.create = function (api) {
     }
   }
 }
+
 
