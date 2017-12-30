@@ -30,7 +30,7 @@ exports.create = function (api) {
   function goto (str) {
     var el = container.firstChild
     if(el) el.dispatchEvent(new CustomEvent('blur', {target: el, removed: true}))
-    window.location.hash = str
+    window.location.hash = '#'+str
   }
 
   function index (str) {
@@ -46,8 +46,8 @@ exports.create = function (api) {
   }
 
   function load (str) {
-    window.location.hash = str
-
+    window.location.hash = '#'+str
+    
     var el = api.app.view(str)
     if(el) {
       console.log(container, container.firstChild)
@@ -65,11 +65,16 @@ exports.create = function (api) {
         var str = window.location.hash.substring(1)
 
         window.onclick = function (ev) {
-          var href = ev.target.getAttribute('href')
+          var href, target = ev.target
+          while (target && !(href = target.getAttribute('href')))
+            target = target.parentNode
+
           if(href) {
-            ev.preventDefault()
             goto(href)
           }
+          ev.preventDefault()
+          ev.stopPropagation()
+          return false
         }
 
         if(isElectron()) {
@@ -93,5 +98,11 @@ exports.create = function (api) {
     }
   }
 }
+
+
+
+
+
+
 
 
